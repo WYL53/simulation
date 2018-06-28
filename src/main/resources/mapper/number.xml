@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.simulation.dao.NumberDao">
+
+    <select id="getList" resultType="com.alibaba.fastjson.JSONObject">
+        select * from t_number
+    </select>
+
+
+    <!--<insert id="addUsers" parameterType="java.util.List">-->
+        <!--insert into user(name,password) values-->
+            <!--<foreach collection="list" item="user" separator="," close=";">-->
+                <!--(#{user.name},#{user.password})-->
+            <!--</foreach>-->
+    <!--</insert>-->
+
+</mapper>

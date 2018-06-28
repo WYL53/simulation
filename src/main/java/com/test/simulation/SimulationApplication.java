@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,42 +21,23 @@ import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @MapperScan("com.test.simulation.dao")
+@EnableAsync
 public class SimulationApplication {
 
     @Autowired
     private UserDao userDao;
 
+	@Bean
+	public TaskExecutor taskExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(5);
+		executor.setMaxPoolSize(20);
+		executor.setQueueCapacity(1000);
+		return executor;
+	}
+
 	public static void main(String[] args) {
-//		System.out.println("hello");
-		ApplicationContext context = SpringApplication.run(SimulationApplication.class, args);
-//        SimulationApplication simulationApplication =  new SimulationApplication();
-		SimulationApplication simulationApplication = (SimulationApplication) context.getBean("simulationApplication");
-        List<JSONObject> users = simulationApplication.getUserList();
-		System.out.println(users);
-		simulationApplication.startTasks(users);
-//		String[] ss = new String[100];
-
-//		startTasks(ss);
-//		ApplicationContext applicationContext =
+		SpringApplication.run(SimulationApplication.class, args);
 	}
 
-	// 关键3
-	@PostConstruct
-	public void init() {
-//		this.userDao
-		System.out.println(this.userDao);
-	}
-
-	public void startTasks(List<JSONObject> users){
-		ExecutorService executorService = Executors.newFixedThreadPool(20);
-		for (JSONObject user : users) {
-			executorService.execute(new MyTask(user,userDao));
-		}
-		executorService.shutdown();
-	}
-
-	private List<JSONObject> getUserList(){
-//	    return
-		return userDao.getList();
-    }
 }
