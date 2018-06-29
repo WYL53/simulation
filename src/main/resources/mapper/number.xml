@@ -7,6 +7,11 @@
         select * from t_number
     </select>
 
+    <update id="update" parameterType="com.alibaba.fastjson.JSONObject">
+        update t_number
+            set status = 10
+            where number = #{number}
+    </update>
 
     <!--<insert id="addUsers" parameterType="java.util.List">-->
         <!--insert into user(name,password) values-->

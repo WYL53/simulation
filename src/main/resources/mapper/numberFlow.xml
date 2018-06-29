@@ -6,4 +6,8 @@
     <update id="update" parameterType="com.alibaba.fastjson.JSONObject">
         UPDATE t_number_flow SET flow=#{flow} where number=#{number}
     </update>
+
+    <insert id="add" parameterType="com.alibaba.fastjson.JSONObject">
+        insert into t_number_flow(number,flow,time) value(#{number},#{flow},#{time})
+    </insert>
 </mapper>

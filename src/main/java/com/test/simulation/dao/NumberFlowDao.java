@@ -9,4 +9,6 @@ public interface NumberFlowDao {
 //    List<JSONObject> getList();
 
     int update(JSONObject object);
+
+    int add(JSONObject object);
 }

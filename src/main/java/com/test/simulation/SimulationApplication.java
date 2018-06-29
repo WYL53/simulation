@@ -30,7 +30,7 @@ public class SimulationApplication {
 	@Bean
 	public TaskExecutor taskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(5);
+		executor.setCorePoolSize(20);
 		executor.setMaxPoolSize(20);
 		executor.setQueueCapacity(1000);
 		return executor;

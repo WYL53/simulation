@@ -8,5 +8,6 @@ public interface NumberDao {
 
     List<JSONObject> getList();
 
+    int update(JSONObject object);
 //    int updateUser(JSONObject object);
 }
