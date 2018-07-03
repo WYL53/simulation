@@ -41,11 +41,11 @@ public class TaskService {
             for (JSONObject obj :objects) {
                 JSONObject j = new JSONObject(3);
                 j.put("number",obj.get("number"));
-                j.put("flow",2);
+                j.put("flow",100);
                 j.put("time",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 numberFlowDao.add(j);
 
-                obj.put("status",666);
+                obj.put("status",1777);
                 numberDao.update(obj);
             }
         } catch (InterruptedException e) {

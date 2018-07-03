@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Future;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,7 +36,7 @@ public class SimulationApplicationTests {
 	@Test
 	public void contextLoads() throws Exception {
 		Integer latchSize = 0;
-		limitService.start();
+		Future<Object> future = limitService.start();
 		int index = 0;
 		int size = 100;
 		List<JSONObject> list = numberDao.getList();
@@ -52,13 +53,11 @@ public class SimulationApplicationTests {
 			task.myTask(sl,latch);
 			index += size;
 		}
-//		while (executor.getThreadPoolExecutor().getQueue().size()>1){
-//			System.out.println(System.currentTimeMillis()+" queueSize:"+executor.getThreadPoolExecutor().getQueue().size());
-//			Thread.sleep(1000);
-//		}
 		latch.await();
 		limitService.shutDown();
-		Thread.sleep(4000);
+		while (!future.isDone()){
+			Thread.sleep(100);
+		}
 		executor.shutdown();
 		System.out.println("完成。");
 	}

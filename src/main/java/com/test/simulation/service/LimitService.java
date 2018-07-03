@@ -1,10 +1,12 @@
 package com.test.simulation.service;
 
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Future;
 
 @Service
 public class LimitService {
@@ -20,11 +22,12 @@ public class LimitService {
     }
 
     @Async
-    public void start()throws InterruptedException{
+    public Future<Object> start()throws InterruptedException{
         while (!this.shutDown) {
-            queue.add(new Object());
+            queue.put(new Object());
             Thread.sleep(3000);
         }
+        return new AsyncResult(new Object());
     }
 
     public Object require() throws InterruptedException{

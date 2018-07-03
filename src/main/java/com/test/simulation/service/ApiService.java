@@ -10,7 +10,7 @@ import java.util.List;
 public class ApiService {
 
     public List<JSONObject> getData(List<JSONObject> queryList)throws InterruptedException{
-        Thread.sleep(13000);
+        Thread.sleep(15000);
         return  queryList;
     }
 }
